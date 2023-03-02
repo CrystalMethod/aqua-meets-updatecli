@@ -1,59 +1,58 @@
 name: Bump updatecli/updatecli version
 
 scms:
-  repository:
-    kind: "github"
+  default:
+    kind: github
     spec:
-      user: "updatecli-bot"
-      email: "updatecli@example.com"
-      owner: "CrystalMethod"
-      repository: "aqua-meets-updatecli"
-      token: '{{ requiredEnv "GITHUB_TOKEN" }}'
-      username: '{{ requiredEnv "GITHUB_AUTHOR" }}'
-      branch: "main"
+      user: CrystalMethod
+      email: updatecli@example.com
+      owner: CrystalMethod
+      repository: aqua-meets-updatecli
+      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+      username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
+      branch: main
 
 sources:
-  updatecli:
+  latestVersion:
     name: Get latest version from GitHub releases
     kind: githubrelease
     spec:
       owner: updatecli
       repository: updatecli
-      token: '{{ requiredEnv "GITHUB_TOKEN" }}'
-      username: '{{ requiredEnv "GITHUB_AUTHOR" }}'
+      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+      username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
 
 conditions:
   updatecli:
     name: Verify latest release published on GitHub
     kind: githubrelease
-    sourceid: updatecli
+    sourceid: latestVersion
     spec:
       owner: updatecli
       repository: updatecli
-      token: '{{ requiredEnv "GITHUB_TOKEN" }}'
-      username: '{{ requiredEnv "GITHUB_AUTHOR" }}'
+      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+      username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
       typefilter:
         release: true
 
 targets:
   updatecli:
-    scmid: repository
+    sourceid: latestVersion
+    scmid: default
     name: Update version in aqua.yaml
     kind: file
     spec:
       file: aqua.yaml
       matchpattern: '(- name: updatecli/updatecli@)v\d+.\d+.\d+'
       replacepattern: >-
-       ${1}{{ source "updatecli" }}
+       ${1}{{ source "latestVersion" }}
 
 actions:
-  pull-request:
+  default:
     kind: github/pullrequest
-    scmid: repository
+    scmid: default
     spec:
       automerge: true
-      description: "Prepend description"
-      draft: false
       labels:
         - "dependencies"
-      title: "Pull Request Title"
+    title: '[updatecli] Bump updatecli version to {{ source "latestVersion" }}'
