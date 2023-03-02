@@ -1,0 +1,58 @@
+name: Bump updatecli/updatecli version
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: CrystalMethod
+      email: updatecli@example.com
+      owner: CrystalMethod
+      repository: aqua-meets-updatecli
+      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+      username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
+      branch: main
+
+sources:
+  latestVersion:
+    name: Get latest version from GitHub releases
+    kind: githubrelease
+    spec:
+      owner: updatecli
+      repository: updatecli
+      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+      username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
+
+conditions:
+  updatecli:
+    name: Verify latest release published on GitHub
+    kind: githubrelease
+    sourceid: latestVersion
+    spec:
+      owner: updatecli
+      repository: updatecli
+      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+      username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
+      typefilter:
+        release: true
+
+targets:
+  updatecli:
+    sourceid: latestVersion
+    scmid: default
+    name: Update version in aqua.yaml
+    kind: file
+    spec:
+      file: aqua.yaml
+      matchpattern: '(- name: updatecli/updatecli@)v\d+.\d+.\d+'
+      replacepattern: >-
+       ${1}{{ source "latestVersion" }}
+
+actions:
+  default:
+    kind: github/pullrequest
+    scmid: default
+    spec:
+      automerge: true
+      labels:
+        - "dependencies"
+    title: '[updatecli] Bump updatecli version to {{ source "latestVersion" }}'
