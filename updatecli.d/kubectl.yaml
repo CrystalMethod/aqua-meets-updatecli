@@ -49,8 +49,7 @@ targets:
     spec:
       file: aqua.yaml
       matchpattern: '(- name: kubernetes/kubectl@)v\d+.\d+.\d+'
-      replacepattern: >-
-       ${1}{{ source "latestVersion" }}
+      replacepattern: '${1}{{ source "latestVersion" }}'
 
 actions:
   default:
