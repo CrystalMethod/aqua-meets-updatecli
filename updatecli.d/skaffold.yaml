@@ -1,0 +1,58 @@
+name: GoogleContainerTools/skaffold version
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: CrystalMethod
+      email: updatecli@example.com
+      owner: CrystalMethod
+      repository: aqua-meets-updatecli
+      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+      username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
+      branch: main
+
+sources:
+  latestVersion:
+    name: Get latest version from GitHub releases
+    kind: githubrelease
+    spec:
+      owner: GoogleContainerTools
+      repository: skaffold
+      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+      username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
+
+conditions:
+  verifyVersion:
+    name: Verify latest release published on GitHub
+    kind: githubrelease
+    sourceid: latestVersion
+    spec:
+      owner: GoogleContainerTools
+      repository: skaffold
+      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+      username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
+      typefilter:
+        release: true
+
+targets:
+  updateVersion:
+    sourceid: latestVersion
+    scmid: default
+    name: Update version in aqua.yaml
+    kind: file
+    spec:
+      file: aqua.yaml
+      matchpattern: '(- name: GoogleContainerTools/skaffold@)v\d+.\d+.\d+'
+      replacepattern: >-
+        ${1}{{ source "latestVersion" }}
+
+actions:
+  default:
+    kind: github/pullrequest
+    scmid: default
+    spec:
+      automerge: true
+      labels:
+        - "dependencies"
+    title: '[updatecli] Bump GoogleContainerTools/skaffold version to {{ source "latestVersion" }}'
