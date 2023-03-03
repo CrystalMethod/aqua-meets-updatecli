@@ -27,18 +27,6 @@ sources:
       versionfilter:
         kind: semver
 
-# conditions:
-#   updatecli:
-#     name: Verify latest release published on GitHub
-#     kind: githubrelease
-#     sourceid: latestVersion
-#     spec:
-#       owner: kubernetes
-#       repository: kubectl
-#       token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
-#       username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
-#       typefilter:
-#         release: true
 
 targets:
   updateVersion:
