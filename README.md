@@ -6,7 +6,9 @@ updatecli diff
 updatecli apply
 ```
 
-### Aqua and Pinned Versions
+### Version Updates
+
+### You can't touch this - Pinned Versions
 
 ##### aqua.yaml
 
@@ -23,6 +25,15 @@ packages:
 ##### updatecli.d/helmfile.yaml
 
 ```yaml
+conditions:
+  pinnedVersion:
+    name: Verify version is not pinned
+    kind: file
+    disablesourceinput: true
+    spec:
+      file: aqua.yaml
+      matchpattern: '(- name: helmfile/helmfile@)v\d+.\d+.\d+'
+
 targets:
   updateVersion:
     sourceid: latestVersion
@@ -32,19 +43,5 @@ targets:
     spec:
       file: aqua.yaml
       matchpattern: '(- name: helmfile/helmfile@)v\d+.\d+.\d+'
-      replacepattern: >-
-        ${1}{{ source "latestVersion" }}
-```
-
-##### Error
-
-The implementation of `matchpattern` of kind `file` in step `targets` fails if no matching entry is to
-be found in the target file.
-
-```console
-ERROR: something went wrong in target "updateVersion" : "No line matched in the file \"/tmp/xxx/yyy/CrystalMethod/aqua-meets-updatecli/aqua.yaml\" for the pattern \"(- name: helmfile/helmfile@)v\\\\d+.\\\\d+.\\\\d+\""
-
-Pipeline "Bump helmfile/helmfile version" failed
-Skipping due to:
-        targets stage:  "something went wrong during target execution"
+      replacepattern: '${1}{{ source "latestVersion" }}'
 ```
