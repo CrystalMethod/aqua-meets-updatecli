@@ -24,6 +24,8 @@ sources:
       repository: kubectl
       token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
       username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
+      versionfilter:
+        kind: semver
 
 # conditions:
 #   updatecli:
