@@ -28,6 +28,14 @@ sources:
         kind: semver
 
 conditions:
+  pinnedVersion:
+    name: Verify version is not pinned
+    kind: file
+    disablesourceinput: true
+    spec:
+      file: aqua.yaml
+      matchpattern: '(- name: sharkdp/bat@)v\d+.\d+.\d+'
+
   verifyVersion:
     name: Verify latest release published on GitHub
     kind: githubrelease

@@ -27,6 +27,14 @@ sources:
       versionfilter:
         kind: semver
 
+conditions:
+  pinnedVersion:
+    name: Verify version is not pinned
+    kind: file
+    disablesourceinput: true
+    spec:
+      file: aqua.yaml
+      matchpattern: '(- name: kubernetes/kubectl@)v\d+.\d+.\d+'
 
 targets:
   updateVersion:
