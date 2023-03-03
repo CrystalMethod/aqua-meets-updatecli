@@ -16,3 +16,4 @@ packages:
 - name: kubernetes/kubectl@v1.26.2
 - name: sharkdp/bat@v0.22.1
 - name: GoogleContainerTools/skaffold@v2.1.0
+- name: anchore/syft@v0.74.0
