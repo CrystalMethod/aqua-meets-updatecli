@@ -29,6 +29,7 @@ sources:
         pattern: 'kubernetes-(\d+.\d+.\d+)$'
     transformers:
       - trimprefix: 'kubernetes-'
+      - addprefix: 'v'
 
 conditions:
   pinnedVersion:
