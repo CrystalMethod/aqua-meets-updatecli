@@ -31,10 +31,10 @@ conditions:
   pinnedVersion:
     name: Verify version is not pinned
     kind: file
-    disablesourceinput: "true"
+    disablesourceinput: true
     spec:
-      file: "aqua.yaml"
-      matchPattern: '(- name: helmfile/helmfile@)v\d+.\d+.\d+'
+      file: aqua.yaml
+      matchpattern: '(- name: helmfile/helmfile@)v\d+.\d+.\d+'
 
   verifyVersion:
     name: Verify latest release published on GitHub
