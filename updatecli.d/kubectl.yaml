@@ -25,7 +25,10 @@ sources:
       token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
       username: '{{ requiredEnv "UPDATECLI_GITHUB_ACTOR" }}'
       versionfilter:
-        kind: semver
+        kind: regex
+        pattern: 'kubernetes-(\d+.\d+.\d+)$'
+    transformers:
+      - trimprefix: 'kubernetes-'
 
 conditions:
   pinnedVersion:
