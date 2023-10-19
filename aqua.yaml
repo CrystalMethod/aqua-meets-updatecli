@@ -11,6 +11,7 @@ registries:
 - type: standard
   ref: v3.139.0 # renovate: depName=aquaproj/aqua-registry
 packages:
+- name: kubernetes/kubectl@v1.28.3
 - name: updatecli/updatecli@v0.64.0
 - name: kubernetes/kubectl@v1.26.3
 - name: cli/cli@v2.37.0
