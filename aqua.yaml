@@ -15,7 +15,7 @@ packages:
 - name: kubernetes/kubectl@v1.28.3
 - name: cli/cli@v2.37.0
 - name: GoogleContainerTools/skaffold@v2.8.0
-- name: anchore/syft@v0.99.0
+- name: anchore/syft@v0.100.0
 - name: sharkdp/bat@v0.24.0
 - name: charmbracelet/gum@v0.11.0
 - name: helmfile/helmfile
