@@ -12,7 +12,7 @@ registries:
   ref: v3.139.0 # renovate: depName=aquaproj/aqua-registry
 packages:
 - name: updatecli/updatecli@v0.74.0
-- name: kubernetes/kubectl@v1.28.3
+- name: kubernetes/kubectl@v1.28.8
 - name: cli/cli@v2.47.0
 - name: GoogleContainerTools/skaffold@v2.8.0
 - name: anchore/syft@v1.1.0
