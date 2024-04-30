@@ -11,11 +11,11 @@ registries:
 - type: standard
   ref: v3.139.0 # renovate: depName=aquaproj/aqua-registry
 packages:
-- name: updatecli/updatecli@v0.76.0
-- name: kubernetes/kubectl@v1.30.0
-- name: cli/cli@v2.49.0
-- name: GoogleContainerTools/skaffold@v2.11.1
-- name: anchore/syft@v1.3.0
+- name: updatecli/updatecli@v0.65.1
+- name: kubernetes/kubectl@v1.28.3
+- name: cli/cli@v2.37.0
+- name: GoogleContainerTools/skaffold@v2.10.1
+- name: anchore/syft@v0.94.0
 - name: sharkdp/bat@v0.24.0
 - name: charmbracelet/gum@v0.14.0
 - name: helmfile/helmfile
