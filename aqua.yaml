@@ -17,6 +17,6 @@ packages:
 - name: GoogleContainerTools/skaffold@v2.13.1
 - name: anchore/syft@v1.11.0
 - name: sharkdp/bat@v0.24.0
-- name: charmbracelet/gum@v0.14.3
+- name: charmbracelet/gum@v0.14.4
 - name: helmfile/helmfile
   version: v0.149.0
