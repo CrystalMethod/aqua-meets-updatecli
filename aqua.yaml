@@ -13,7 +13,7 @@ registries:
 packages:
 - name: updatecli/updatecli@v0.86.0
 - name: kubernetes/kubectl@v1.31.2
-- name: cli/cli@v2.60.1
+- name: cli/cli@v2.62.0
 - name: GoogleContainerTools/skaffold@v2.13.2
 - name: anchore/syft@v1.16.0
 - name: sharkdp/bat@v0.24.0
